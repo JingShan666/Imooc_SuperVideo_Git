@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Imooc_SuperVideo</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="home_title">首页</string>
+    <string name="blog_title">我的博客</string>
+    <string name="about_title">关于SuperVideo</string>
+
+    <string name="app_description">1、聚合海量视频，视频源来源于搜狐，乐视等主流视频网站的丰富视频内容，最新院线大片，热播剧随时看\n
+2、基于ijkplayer,解码支持RMVB,MKV,WMA，MP4...等主流音视频格式，达到万能播放的体验\n
+3、收藏影视剧、播放历史，一个不缺\n
+   4、直播高清央视及卫视节目。\n</string>
+
+
+    <string name="channel_series">电视剧</string>
+    <string name="channel_movie">电影</string>
+    <string name="channel_comic">动漫</string>
+    <string name="channel_documentary">纪录片</string>
+    <string name="channel_music">音乐</string>
+    <string name="channel_variety">综艺</string>
+    <string name="channel_live">直播</string>
+    <string name="channel_favorite">收藏</string>
+    <string name="channel_history">历史</string>
+
+
+    <string name="a_name">三生三世十里桃花</string>
+    <string name="b_name">那片星空那片海</string>
+    <string name="c_name">大秦帝国之崛起</string>
+    <string name="d_name">射雕英雄传</string>
+    <string name="e_name">中国式相亲之奶茶大叔遭疯抢</string>
+
+</resources>

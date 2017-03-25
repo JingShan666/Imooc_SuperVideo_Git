@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_guide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+    <!--layout_gravity 父布局的位置-->
+    <!--gravity 自己(本身)布局的位置-->
+    <TextView
+        android:id="@+id/tv_dec"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40dp"
+        android:textSize="@dimen/dimen_28sp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="@dimen/dimen_6dp"
+        android:textColor="@color/white"
+
+        />
+
+
+</FrameLayout>

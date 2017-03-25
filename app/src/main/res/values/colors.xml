@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F5484C</color>
+    <color name="colorPrimaryDark">#F5484C</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="windowBackground">#fafafa</color>
+
+    <color name="loading_web_bg_color">#518b23</color>
+    <color name="progress_start_color">#9cff4d</color>
+    <color name="progress_center_color">#a2e66d</color>
+    <color name="progress_end_color">#a2e66d</color>
+
+    <color name="fragment_bg_color">#D3D3D3</color>
+    <color name="text_color">#262626</color>
+    <color name="white">#FFFFFF</color>
+
+
+</resources>
