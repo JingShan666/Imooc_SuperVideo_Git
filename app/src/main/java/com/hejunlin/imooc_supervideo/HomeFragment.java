@@ -32,6 +32,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        Log.d(TAG, ">> initView ");
         LoopViewPager viewPager = bindViewId(R.id.looperviewpager);
         CircleIndicator indicator = bindViewId(R.id.indicator);
         viewPager.setAdapter(new HomePicAdapter(getActivity()));
