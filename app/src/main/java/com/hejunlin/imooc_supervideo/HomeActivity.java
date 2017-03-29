@@ -39,7 +39,7 @@ public class HomeActivity extends BaseActivity {
 
         //TODO
         mPreItem = mNavigationView.getMenu().getItem(0);
-        mPreItem.setCheckable(true);
+        mPreItem.setChecked(true);
         initFragment();
         handleNatigationView();
     }
@@ -73,7 +73,7 @@ public class HomeActivity extends BaseActivity {
                 }
                 mPreItem = item;
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
-                item.setCheckable(true);
+                item.setChecked(true);
                 return false;
             }
         });

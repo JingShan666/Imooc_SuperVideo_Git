@@ -13,6 +13,8 @@
 3、收藏影视剧、播放历史，一个不缺\n
    4、直播高清央视及卫视节目。\n</string>
 
+    <string name="site_letv">乐视视频</string>
+    <string name="site_sohu">搜狐视频</string>
 
     <string name="channel_series">电视剧</string>
     <string name="channel_movie">电影</string>
@@ -30,5 +32,9 @@
     <string name="c_name">大秦帝国之崛起</string>
     <string name="d_name">射雕英雄传</string>
     <string name="e_name">中国式相亲之奶茶大叔遭疯抢</string>
+
+
+    <string name="data_failed_tip">数据加载失败,请检查网络!</string>
+    <string name="load_more_text">正在加载新数据...</string>
 
 </resources>

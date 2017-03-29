@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hejunlin.imooc_supervideo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".GuideActivity"></activity>
+        <activity android:name=".GuideActivity" />
+        <activity android:name=".DetailListActivity"></activity>
     </application>
 
 </manifest>

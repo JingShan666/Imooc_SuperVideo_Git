@@ -56,6 +56,7 @@ public class HomeFragment extends BaseFragment {
                         break;
                     default:
                         //TODO  跳转对应频道
+                        DetailListActivity.launchDetailListActivity(getActivity(), position + 1);
                         break;
                 }
             }
