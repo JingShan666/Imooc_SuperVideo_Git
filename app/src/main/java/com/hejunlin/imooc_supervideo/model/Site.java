@@ -31,12 +31,8 @@ public class Site {
         }
     }
 
-    public int getChannelId() {
+    public int getSiteId() {
         return siteId;
-    }
-
-    public String getChannelName() {
-        return siteName;
     }
 
 }

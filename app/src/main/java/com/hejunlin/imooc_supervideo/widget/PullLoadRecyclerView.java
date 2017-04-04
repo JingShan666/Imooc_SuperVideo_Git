@@ -1,15 +1,19 @@
 package com.hejunlin.imooc_supervideo.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ public class PullLoadRecyclerView extends LinearLayout {
     private RecyclerView mRecyclerView;
     private View mFootView;
     private AnimationDrawable mAnimationDrawable;
+    private OnPullLoadMoreListener mOnPullLoadMoreListener;
 
     public PullLoadRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -64,7 +69,7 @@ public class PullLoadRecyclerView extends LinearLayout {
             }
         });
 
-        mRecyclerView.setScrollbarFadingEnabled(true);//隐藏滚动条
+        mRecyclerView.setVerticalScrollBarEnabled(false);//隐藏滚动条
         mRecyclerView.addOnScrollListener(new RecyclerViewOnScroll());
         mFootView = view.findViewById(R.id.footer_view);
         ImageView imageView = (ImageView) mFootView.findViewById(R.id.iv_load_img);
@@ -75,6 +80,19 @@ public class PullLoadRecyclerView extends LinearLayout {
         mFootView.setVisibility(View.GONE);
         //view 包含swipeRefreshLayout, RecyclerView, FootView
         this.addView(view);//
+    }
+
+    //外部可以设置recyclerview的列数
+    public void setGridLayout(int spanCount) {
+        GridLayoutManager manager = new GridLayoutManager(mContext, spanCount);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        if (adapter != null) {
+            mRecyclerView.setAdapter(adapter);
+        }
     }
 
     class SwipeRefreshLayoutOnRefresh implements SwipeRefreshLayout.OnRefreshListener{
@@ -112,19 +130,74 @@ public class PullLoadRecyclerView extends LinearLayout {
             } else {
                 mSwipeRefreshLayout.setEnabled(false);
             }
+            // 1.加载更多是false
+            // 2.totalCount - 1 === lastItem
+            // 3.mSwipeRefreshLayout可以用
+            // 4. 不是处于下拉刷新状态
+            // 5. 偏移量dx > 0 或dy > 0
             if (!mIsLoadMore
-                && totalCount == lastItem
+                && totalCount - 1 == lastItem
+                && mSwipeRefreshLayout.isEnabled()
+                && !mIsRefresh
                 && (dx > 0 || dy > 0)) {
+                mIsLoadMore = true;
                 loadMoreData();
             }
         }
     }
 
     private void refreshData() {
-        //TODO
+        if (mOnPullLoadMoreListener != null) {
+            mOnPullLoadMoreListener.reRresh();
+        }
     }
 
     private void loadMoreData() {
-        //TODO
+        if (mOnPullLoadMoreListener != null) {
+            mFootView.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator())
+                    .setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    mFootView.setVisibility(View.VISIBLE);
+                    mAnimationDrawable.start();
+                }
+            }).start();
+            invalidate();
+            mOnPullLoadMoreListener.loadMore();
+        }
+    }
+
+    //设置刷新完毕
+    public void setRefreshCompleted() {
+        mIsRefresh = false;
+        setRefreshing(false);
+    }
+
+    //设置是否正在刷新
+    private void setRefreshing(final boolean isRefreshing) {
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(isRefreshing);
+            }
+        });
+    }
+
+    public void setLoadMoreCompleted() {
+        mIsLoadMore = false;
+        mIsRefresh = false;
+        setRefreshing(false);
+        mFootView.animate().translationY(mFootView.getHeight()).setInterpolator(new AccelerateDecelerateInterpolator())
+                .setDuration(300).start();
+    }
+
+    public interface OnPullLoadMoreListener {
+        void reRresh();
+        void loadMore();
+    }
+
+    public void setOnPullLoadMoreListener(OnPullLoadMoreListener listener) {
+        mOnPullLoadMoreListener = listener;
     }
 }
