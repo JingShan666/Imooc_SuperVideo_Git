@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hejunlin.imooc_supervideo">
 
+    <!-- 网络访问-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
+        android:name=".AppManager"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"

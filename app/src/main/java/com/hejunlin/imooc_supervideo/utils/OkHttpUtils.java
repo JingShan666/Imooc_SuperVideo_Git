@@ -19,7 +19,7 @@ public class OkHttpUtils {
                     .tag(REQUEST_TAG)
                     .url(url)
                     .build();
-            return null;
+            return request;
         }
         return null;
     }

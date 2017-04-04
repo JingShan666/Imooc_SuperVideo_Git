@@ -46,7 +46,7 @@ public class ErrorInfo {
     }
 
     public ErrorInfo(int siteId, int type) {
-        site = new Site(siteId, AppManager.getContext());
+        site = new Site(siteId);
     }
 
     public int getType() {
