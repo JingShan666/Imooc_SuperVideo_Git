@@ -1,17 +1,19 @@
 package com.hejunlin.imooc_supervideo;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hejunlin.imooc_supervideo.api.OnGetChannelAlbumListener;
@@ -22,6 +24,7 @@ import com.hejunlin.imooc_supervideo.model.AlbumList;
 import com.hejunlin.imooc_supervideo.model.Channel;
 import com.hejunlin.imooc_supervideo.model.ErrorInfo;
 import com.hejunlin.imooc_supervideo.model.Site;
+import com.hejunlin.imooc_supervideo.utils.ImageUtils;
 import com.hejunlin.imooc_supervideo.widget.PullLoadRecyclerView;
 
 /**
@@ -69,6 +72,9 @@ public class DetailListFragment extends BaseFragment {
         loadData(); //第一次加载数据
         if (mSiteId == Site.LETV) { // 乐视下相关频道2列
             mColumns = 2;
+            mAdapter.setColumns(mColumns);
+        } else {
+            mColumns = 3;
             mAdapter.setColumns(mColumns);
         }
     }
@@ -159,6 +165,8 @@ public class DetailListFragment extends BaseFragment {
 
         private Context mContext;
         private Channel mChannel;
+        private AlbumList mAlbumList = new AlbumList();
+        private int mColumns;
 
         public DetailListAdapter(Context context, Channel channel) {
             mContext = context;
@@ -167,27 +175,79 @@ public class DetailListFragment extends BaseFragment {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            View view  = ((Activity)mContext).getLayoutInflater().inflate(R.layout.detailist_item, null);
+            ItemViewHolder itemViewHolder = new ItemViewHolder(view);
+            view.setTag(itemViewHolder);
+            return itemViewHolder;
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (mAlbumList.size() == 0) {
+                return;
+            }
+            Album album = getItem(position);
+            if (holder instanceof ItemViewHolder) {
+                ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+                itemViewHolder.albumName.setText(album.getTitle());
+                if (album.getTip().isEmpty()) {
+                    itemViewHolder.albumTip.setVisibility(View.GONE);
+                } else {
+                    itemViewHolder.albumTip.setText(album.getTip());
+                }
+                //重新计算宽高
+                Point point = ImageUtils.getVerPostSize(mContext, mColumns);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(point.x, point.y);
+                itemViewHolder.albumPoster.setLayoutParams(params);
 
+                if (album.getVerImgUrl() != null) {
+                    ImageUtils.disPlayImage(itemViewHolder.albumPoster, album.getVerImgUrl(), point.x, point.y);
+                } else {
+                    //TOD 默认图
+                }
+            }
+
+        }
+
+        private Album getItem(int position) {
+            return mAlbumList.get(position);
         }
 
         @Override
         public int getItemCount() {
+            if (mAlbumList.size() > 0) {
+                return  mAlbumList.size();
+            }
             return 0;
         }
 
+        //显示列数
         public void setColumns(int columns){
-            //TODO
+            mColumns = columns;
         }
 
         public void setData(Album album) {
-            //TODO
+            mAlbumList.add(album);
+        }
+
+        public class ItemViewHolder extends RecyclerView.ViewHolder {
+
+            private LinearLayout resultContainer;
+            private ImageView albumPoster;
+            private TextView albumName;
+            private TextView albumTip;
+
+            public ItemViewHolder(View view) {
+                super(view);
+                resultContainer = (LinearLayout) view.findViewById(R.id.album_container);
+                albumPoster = (ImageView) view.findViewById(R.id.iv_album_poster);
+                albumTip = (TextView) view.findViewById(R.id.tv_album_tip);
+                albumName = (TextView) view.findViewById(R.id.tv_album_name);
+            }
         }
     }
+
+
     @Override
     protected void initData() {
 

@@ -15,6 +15,9 @@
     <color name="text_color">#262626</color>
     <color name="white">#FFFFFF</color>
     <color name="grey_medium">#999999</color>
+    
+    <color name="transparentWhite">#11FFFFFF</color>
+    <color name="transparentBlack">#B0111111</color>
 
 
 </resources>
