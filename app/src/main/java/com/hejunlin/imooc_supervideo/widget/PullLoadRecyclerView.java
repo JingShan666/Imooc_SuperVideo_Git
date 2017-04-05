@@ -55,7 +55,7 @@ public class PullLoadRecyclerView extends LinearLayout {
         View view = LayoutInflater.from(mContext).inflate(R.layout.pull_loadmore_layout, null);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         //设置刷新时控件颜色渐变
-        mSwipeRefreshLayout.setColorSchemeColors(android.R.color.holo_green_dark, android.R.color.holo_blue_dark, android.R.color.holo_orange_dark);
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark, android.R.color.holo_blue_dark, android.R.color.holo_orange_dark);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayoutOnRefresh());
 
         //处理RecyclerView
@@ -125,11 +125,6 @@ public class PullLoadRecyclerView extends LinearLayout {
                 }
             }
             //什么时候触发上拉加载更多?
-            if (mSwipeRefreshLayout.isEnabled()) {
-                mSwipeRefreshLayout.setEnabled(true);
-            } else {
-                mSwipeRefreshLayout.setEnabled(false);
-            }
             // 1.加载更多是false
             // 2.totalCount - 1 === lastItem
             // 3.mSwipeRefreshLayout可以用
@@ -141,7 +136,11 @@ public class PullLoadRecyclerView extends LinearLayout {
                 && !mIsRefresh
                 && (dx > 0 || dy > 0)) {
                 mIsLoadMore = true;
+                //在加载更多时,禁止mSwipeRefreshLayout使用
+                mSwipeRefreshLayout.setEnabled(false);
                 loadMoreData();
+            } else {
+                mSwipeRefreshLayout.setEnabled(true);
             }
         }
     }

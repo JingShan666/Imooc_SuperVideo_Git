@@ -26,7 +26,7 @@ public class ImageUtils {
                         .load(url) //加载图片url
                         .diskCacheStrategy(DiskCacheStrategy.ALL)// 设置缓存
                         .error(R.drawable.ic_loading_hor)//出错时使用默认图
-                        .centerCrop()//设置图片居中
+                        .fitCenter()//设置图片居中, centerCrop会截断大图,不会自适应, fitCenter居中自适应
                         .override(height,width)//重写宽高
                         .into(view);//加载imageview上
             } else {
@@ -57,6 +57,15 @@ public class ImageUtils {
         return point;
     }
 
+    public static Point getHorPostSize(Context context, int columns) {
+        int width = getScreenWidthPixel(context) / columns;
+        width = width - (int)context.getResources().getDimension(R.dimen.dimen_8dp);
+        int height = Math.round((float)width/HOR_POSTER_RATIO);
+        Point point = new Point();
+        point.x = width;
+        point.y = height;
+        return point;
+    }
 
     public static int getScreenWidthPixel(Context conetxt) {
         WindowManager wm = (WindowManager) conetxt.getSystemService(conetxt.WINDOW_SERVICE);

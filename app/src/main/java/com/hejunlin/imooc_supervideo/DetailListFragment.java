@@ -9,12 +9,14 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hejunlin.imooc_supervideo.api.OnGetChannelAlbumListener;
 import com.hejunlin.imooc_supervideo.api.SiteApi;
@@ -89,13 +91,29 @@ public class DetailListFragment extends BaseFragment {
         mEmptyView = bindViewId(R.id.tv_empty);
         mEmptyView.setText(getActivity().getResources().getString(R.string.load_more_text));
         mRecyclerView = bindViewId(R.id.pullloadRecyclerView);
-        mRecyclerView.setGridLayout(3);
+        mRecyclerView.setGridLayout(mColumns);
         mRecyclerView.setAdapter(mAdapter); //
         mRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreListener());
     }
 
+    /**
+     * 下拉刷新
+     */
     private void reRreshData() {
-        //TODO 请求接口,加载数据
+        // 请求接口,加载数据
+        pageNo = 0;
+        mAdapter = null;
+        mAdapter = new DetailListAdapter(getActivity(), new Channel(mChannelId, getActivity()));
+        loadData(); //第一次加载数据
+        if (mSiteId == Site.LETV) { // 乐视下相关频道2列
+            mColumns = 2;
+            mAdapter.setColumns(mColumns);
+        } else {
+            mColumns = 3;
+            mAdapter.setColumns(mColumns);
+        }
+        mRecyclerView.setAdapter(mAdapter);
+        Toast.makeText(getActivity(), "已加载到最新数据", Toast.LENGTH_LONG).show();
     }
 
     private void loadData() {
@@ -195,16 +213,26 @@ public class DetailListFragment extends BaseFragment {
                 } else {
                     itemViewHolder.albumTip.setText(album.getTip());
                 }
+                Point point = null;
                 //重新计算宽高
-                Point point = ImageUtils.getVerPostSize(mContext, mColumns);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(point.x, point.y);
-                itemViewHolder.albumPoster.setLayoutParams(params);
+                if (mColumns == 2) {
+                    point = ImageUtils.getHorPostSize(mContext, mColumns);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(point.x, point.y);
+                    itemViewHolder.albumPoster.setLayoutParams(params);
+                } else {
+                    point = ImageUtils.getVerPostSize(mContext, mColumns);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(point.x, point.y);
+                    itemViewHolder.albumPoster.setLayoutParams(params);
+                }
 
                 if (album.getVerImgUrl() != null) {
                     ImageUtils.disPlayImage(itemViewHolder.albumPoster, album.getVerImgUrl(), point.x, point.y);
+                } else if (album.getHorImgUrl() != null){
+                    ImageUtils.disPlayImage(itemViewHolder.albumPoster, album.getHorImgUrl(), point.x, point.y);
                 } else {
                     //TOD 默认图
                 }
+
             }
 
         }

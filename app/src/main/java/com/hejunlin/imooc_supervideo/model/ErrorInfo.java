@@ -13,6 +13,7 @@ public class ErrorInfo {
     public static final int ERROR_TYPE_URL = 2;
     public static final int ERROR_TYPE_FATAL = 3;
     public static final int ERROR_TYPE_DATA_CONVERT = 4;
+    public static final int ERROR_TYPE_PARSE_JSON = 5;
 
     @Expose // 区分实体中不想被序列化的属性,自身包含序列化及反序列化
     int type; //错误类型
