@@ -204,7 +204,7 @@ public class DetailListFragment extends BaseFragment {
             if (mAlbumList.size() == 0) {
                 return;
             }
-            Album album = getItem(position);
+            final Album album = getItem(position);
             if (holder instanceof ItemViewHolder) {
                 ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
                 itemViewHolder.albumName.setText(album.getTitle());
@@ -232,6 +232,16 @@ public class DetailListFragment extends BaseFragment {
                 } else {
                     //TOD 默认图
                 }
+                itemViewHolder.resultContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mChannelId == Channel.DOCUMENTRY|| mChannelId == Channel.MOVIE || mChannelId== Channel.VARIETY || mChannelId == Channel.MUSIC) {
+                            AlbumDetailActivity.launch(getActivity(), album, 0, true);
+                        } else {
+                            AlbumDetailActivity.launch(getActivity(), album);
+                        }
+                    }
+                });
 
             }
 

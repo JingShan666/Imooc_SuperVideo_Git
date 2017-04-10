@@ -9,6 +9,14 @@
     <include
         layout="@layout/top_actionbar"/>
 
+    <com.hejunlin.imooc_supervideo.indircator.CoolIndicatorLayout
+        android:id="@+id/viewpager_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:background="@color/white"
+        />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_height="match_parent"
