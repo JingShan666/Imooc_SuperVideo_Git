@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/bt_super"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:background="@drawable/video_item_button_bg"
+        android:text="@string/btn_phone_super"
+        android:textColor="@color/grey_medium"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/bt_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:background="@drawable/video_item_button_bg"
+        android:text="@string/btn_phone_normal"
+        android:textColor="@color/grey_medium"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/bt_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:background="@drawable/video_item_button_bg"
+        android:text="@string/btn_phone_high"
+        android:textColor="@color/grey_medium"
+        android:visibility="gone"/>
+
+</LinearLayout>

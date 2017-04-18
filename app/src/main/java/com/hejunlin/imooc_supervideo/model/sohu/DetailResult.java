@@ -1,7 +1,6 @@
 package com.hejunlin.imooc_supervideo.model.sohu;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by hejunlin on 17/4/4.
@@ -10,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * 搜狐数据频道数据返回集
  */
-public class Result {
+public class DetailResult {
 
     @Expose
     private long status;
@@ -18,9 +17,9 @@ public class Result {
     @Expose
     private String statusText;
 
-    //for 列表页
+    //for 详情页
     @Expose
-    private Data data;
+    private ResultAlbum data;
 
     public long getStatus() {
         return status;
@@ -38,12 +37,11 @@ public class Result {
         this.statusText = statusText;
     }
 
-    public Data getData() {
+    public ResultAlbum getResultAlbum() {
         return data;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setResultAlbum(ResultAlbum resultAlbum) {
+        this.data = resultAlbum;
     }
-
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="key_video_url" type="id"/>
+    <item name="key_video" type="id"/>
+    <item name="key_video_stream" type="id"/>
+    <item name="key_current_video_number" type="id"/>
+
+</resources>

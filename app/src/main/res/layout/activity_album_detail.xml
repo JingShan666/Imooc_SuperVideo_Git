@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
+        android:background="@drawable/bg_boder"
         android:padding="@dimen/dimen_8dp"
         android:weightSum="7">
 
@@ -72,16 +73,10 @@
         android:layout_height="0dp"
         android:layout_weight="2">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/dimen_8dp"/>
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_2dp"
-            android:background="@color/grey_medium"
+            android:background="@color/grey_medium_light"
             android:layout_gravity="bottom"/>
 
         <!-- 描述相关-->
@@ -116,7 +111,29 @@
 
         </RelativeLayout>
 
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_8dp"/>
+
+
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_8dp"
+        >
+
+        <include layout="@layout/detail_bottom_button"/>
+
+    </LinearLayout>
+
+
     
     
 </LinearLayout>

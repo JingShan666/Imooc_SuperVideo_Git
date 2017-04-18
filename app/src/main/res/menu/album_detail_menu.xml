@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <!-- android:orderInCategory 表示在actionbar中 优先级,值越大,优先级越低,
+        展示不下时,会到overflow上-->
+    <item
+        android:id="@+id/action_favor_item"
+        android:icon="@drawable/favorite_selected"
+        android:orderInCategory="10"
+        android:title="@string/favor_selected"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/action_unfavor_item"
+        android:icon="@drawable/favorite_normal"
+        android:orderInCategory="10"
+        android:title="@string/favor_normal"
+        app:showAsAction="always" />
+
+</menu>

@@ -36,5 +36,14 @@
 
     <string name="data_failed_tip">数据加载失败,请检查网络!</string>
     <string name="load_more_text">正在加载新数据...</string>
+    <string name="no_date_text">暂时没有数据...</string>
+
+    <string name="director">导演：</string>
+    <string name="mainactor">主演：</string>
+    <string name="btn_phone_super">超清\n播放</string>
+    <string name="btn_phone_normal">标清\n播放</string>
+    <string name="btn_phone_high">高清\n播放</string>
+    <string name="favor_selected">已收藏</string>
+    <string name="favor_normal">收藏</string>
 
 </resources>

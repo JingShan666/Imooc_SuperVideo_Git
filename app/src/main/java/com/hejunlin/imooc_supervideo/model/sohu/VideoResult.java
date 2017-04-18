@@ -1,16 +1,15 @@
 package com.hejunlin.imooc_supervideo.model.sohu;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by hejunlin on 17/4/4.
+ * Created by hejunlin on 17/4/15.
  */
 
 /**
- * 搜狐数据频道数据返回集
+ * VideoResult 表示详情页面放回Video,一级结构,包含VideoData
  */
-public class Result {
+public class VideoResult {
 
     @Expose
     private long status;
@@ -18,9 +17,8 @@ public class Result {
     @Expose
     private String statusText;
 
-    //for 列表页
     @Expose
-    private Data data;
+    private VideoData data;
 
     public long getStatus() {
         return status;
@@ -38,12 +36,20 @@ public class Result {
         this.statusText = statusText;
     }
 
-    public Data getData() {
+    public VideoData getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(VideoData data) {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "VideoResult{" +
+                "status=" + status +
+                ", statusText='" + statusText + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

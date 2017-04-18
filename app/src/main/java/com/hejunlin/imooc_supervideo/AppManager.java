@@ -53,4 +53,17 @@ public class AppManager extends Application {
         return networkInfo != null && networkInfo.isConnected();
     }
 
+    public static boolean isNetworkWifiAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(1) != null) {
+            NetworkInfo.State state = connectivityManager.getNetworkInfo(1).getState();
+            if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 }

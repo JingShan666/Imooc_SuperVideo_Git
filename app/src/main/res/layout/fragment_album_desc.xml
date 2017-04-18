@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hejunlin.imooc_supervideo.widget.CustomGridView
+        android:id="@+id/gv_video_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="6"
+        android:choiceMode="singleChoice"
+        android:verticalSpacing="@dimen/dimen_8dp"
+        android:horizontalSpacing="@dimen/dimen_8dp"
+        android:stretchMode="columnWidth" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/dimen_32sp"
+        android:text="@string/no_date_text"/>
+
+
+</FrameLayout>

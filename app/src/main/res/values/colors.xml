@@ -15,6 +15,15 @@
     <color name="text_color">#262626</color>
     <color name="white">#FFFFFF</color>
     <color name="grey_medium">#999999</color>
+
+    <color name="grey_extra_light">#eeeeee</color>
+    <color name="grey_light">#dddddd</color>
+    <color name="grey_medium_light">#bbbbbb</color>
+    <color name="grey_medium_dark">#666666</color>
+    <color name="grey_dark">#333333</color>
+    <color name="grey_extra_dark">#222222</color>
+    <color name="item_checked">#cd5c5c</color>
+    <color name="grey_white">#e8f0f5</color>
     
     <color name="transparentWhite">#11FFFFFF</color>
     <color name="transparentBlack">#B0111111</color>

@@ -24,7 +24,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".GuideActivity" />
         <activity android:name=".DetailListActivity" />
-        <activity android:name=".AlbumDetailActivity"></activity>
+        <activity android:name=".AlbumDetailActivity" />
+        <activity android:name=".PlayActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import com.hejunlin.imooc_supervideo.model.AlbumList;
 import com.hejunlin.imooc_supervideo.model.Channel;
 import com.hejunlin.imooc_supervideo.model.ErrorInfo;
 import com.hejunlin.imooc_supervideo.model.Site;
+import com.hejunlin.imooc_supervideo.model.sohu.Video;
 import com.hejunlin.imooc_supervideo.utils.OkHttpUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -145,5 +146,20 @@ public class LetvApi extends BaseSiteApi {
         info.setTag(TAG);
         info.setClassName(TAG);
         return info;
+    }
+
+
+    public void onGetAlbumDetail(Album album, OnGetAlbumDetailListener listener) {
+        //TODO
+    }
+
+    public void onGetVideo(Album album, int pageSize, int pageNo, OnGetVideoListener listener) {
+        //TODO
+    }
+
+
+    //取视频播放url
+    public void onGetVideoPlayUrl(Video video, OnGetVideoPlayUrlListener listener) {
+        //TODO
     }
 }
