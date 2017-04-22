@@ -25,7 +25,8 @@ public class SiteApi {
         }
     }
 
-    public static void onGetAlbumDetail(int siteId, Album album, OnGetAlbumDetailListener listener) {
+    public static void onGetAlbumDetail(Album album, OnGetAlbumDetailListener listener) {
+        int siteId = album.getSite().getSiteId();
         switch (siteId) {
             case Site.LETV:
                 new LetvApi().onGetAlbumDetail(album, listener);
@@ -38,11 +39,11 @@ public class SiteApi {
 
     /**
      * 取video相关信息
-     * @param siteId
      * @param album
      * @param listener
      */
-    public static void onGetVideo(int siteId, int pageSize, int pageNo, Album album, OnGetVideoListener listener) {
+    public static void onGetVideo(int pageSize, int pageNo, Album album, OnGetVideoListener listener) {
+        int siteId = album.getSite().getSiteId();
         switch (siteId) {
             case Site.LETV:
                 new LetvApi().onGetVideo(album, pageSize, pageNo, listener);
@@ -53,7 +54,8 @@ public class SiteApi {
         }
     }
 
-    public static void onGetVideoPlayUrl(int siteId, Video video, OnGetVideoPlayUrlListener listener) {
+    public static void onGetVideoPlayUrl(Video video, OnGetVideoPlayUrlListener listener) {
+        int siteId = video.getSite();
         switch (siteId) {
             case Site.LETV:
                 new LetvApi().onGetVideoPlayUrl(video,  listener);

@@ -76,6 +76,15 @@ public class Video implements Parcelable {
     private String superUrl;
     private String normalUrl;
     private String highUrl;
+    private long mid;
+
+    public long getMid() {
+        return mid;
+    }
+
+    public void setMid(long mid) {
+        this.mid = mid;
+    }
 
     public long getAid() {
         return aid;

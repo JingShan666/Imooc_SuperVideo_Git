@@ -100,7 +100,7 @@ public class AlbumPlayGridFragment extends BaseFragment {
     private void loadData() {
         Log.d(TAG, ">> loadData ");
         mPageNo ++;
-        SiteApi.onGetVideo(1, mPageSize, mPageNo, mAlbum, new OnGetVideoListener() {
+        SiteApi.onGetVideo(mPageSize, mPageNo, mAlbum, new OnGetVideoListener() {
             @Override
             public void OnGetVideoSuccess(VideoList videoList) {
                 Log.d(TAG, ">> OnGetVideoSuccess " + videoList.size());

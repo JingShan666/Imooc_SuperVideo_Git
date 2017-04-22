@@ -194,7 +194,7 @@ public class SohuApi extends BaseSiteApi {
         });
     }
 
-    public void onGetVideo(Album album, int pageSize, int pageNo, final OnGetVideoListener listener) {
+    public void onGetVideo(final Album album, int pageSize, int pageNo, final OnGetVideoListener listener) {
         final String url = String.format(API_ALBUM_VIDOES_FORMAT, album.getAlbumId(), pageNo, pageSize);
         OkHttpUtils.excute(url, new Callback() {
             @Override
@@ -220,6 +220,7 @@ public class SohuApi extends BaseSiteApi {
                     if (result.getData() != null) {
                         for (Video video: result.getData().getVideoList()) {
                             Video v = new Video();
+                            v.setSite(album.getSite().getSiteId());
                             v.setHorHighPic(video.getHorHighPic());
                             v.setVerHighPic(video.getVerHighPic());
                             v.setVid(video.getVid());

@@ -24,6 +24,7 @@ public class VideoItemAdapter extends BaseAdapter {
     private OnVideoSelectedListener mListener;
     private boolean mIsShowTitleContent;
     private VideoList mVideoList = new VideoList();
+    private boolean mIsFirst = true;
 
     public VideoItemAdapter(Context context, int totalCount, OnVideoSelectedListener listener) {
         mTotalCount = totalCount;
@@ -81,8 +82,9 @@ public class VideoItemAdapter extends BaseAdapter {
             holder.videoTitle.setText(String.valueOf(position + 1));
         }
         //处理首次进入详情页,不显示底部button,须要主动通知
-        if (position == 0) {
+        if (position == 0 && mIsFirst) {
             mListener.onVideoSelected(video, position);
+            mIsFirst = false;
         }
         holder.videoTitle.setOnClickListener(new View.OnClickListener() {
             @Override

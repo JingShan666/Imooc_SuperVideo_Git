@@ -114,8 +114,7 @@ public class AlbumDetailActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void initData() {
+    private void updateInfo() {
         mAlbumName.setText(mAlbum.getTitle());
         //导演
         if (!TextUtils.isEmpty(mAlbum.getDirector())) {
@@ -139,21 +138,27 @@ public class AlbumDetailActivity extends BaseActivity {
             mAlbumDesc.setVisibility(View.GONE);
         }
         //海报图
-        if (!TextUtils.isEmpty(mAlbum.getHorImgUrl())) {
-            ImageUtils.disPlayImage(mAlbumImg, mAlbum.getHorImgUrl());
-        }
-
         if (!TextUtils.isEmpty(mAlbum.getVerImgUrl())) {
             ImageUtils.disPlayImage(mAlbumImg, mAlbum.getVerImgUrl());
+        } else if (!TextUtils.isEmpty(mAlbum.getHorImgUrl())) {
+            ImageUtils.disPlayImage(mAlbumImg, mAlbum.getHorImgUrl());
         }
-        SiteApi.onGetAlbumDetail(1, mAlbum, new OnGetAlbumDetailListener() {
+    }
+
+    @Override
+    protected void initData() {
+        updateInfo();
+        //补全详情页数据
+        SiteApi.onGetAlbumDetail(mAlbum, new OnGetAlbumDetailListener() {
             @Override
             public void onGetAlbumDetailSuccess(final Album album) {
                 Log.d(TAG, ">> onGetAlbumDetailSuccess album " + album.getVideoTotal());
+                mAlbum = album;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mFragment =  AlbumPlayGridFragment.newInstance(album, mIsShowDesc, 0);
+                        updateInfo();
+                        mFragment =  AlbumPlayGridFragment.newInstance(mAlbum, mIsShowDesc, 0);
                         mFragment.setPlayVideoSelectedListener(mPlayVideoSelectedListener);
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.fragment_container,mFragment);
@@ -242,7 +247,7 @@ public class AlbumDetailActivity extends BaseActivity {
         @Override
         public void OnPlayVideoSelected(Video video, int position) {
             mCurrentVideoPosition = position;
-            SiteApi.onGetVideoPlayUrl(1, video, mVideoUrlListener);
+            SiteApi.onGetVideoPlayUrl(video, mVideoUrlListener);
         }
     };
 
