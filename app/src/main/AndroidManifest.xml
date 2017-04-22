@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hejunlin.imooc_supervideo">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 网络访问 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态 -->
