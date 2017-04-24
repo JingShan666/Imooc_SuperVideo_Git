@@ -27,6 +27,10 @@
     
     <color name="transparentWhite">#11FFFFFF</color>
     <color name="transparentBlack">#B0111111</color>
+    <color name="loading_bg">#de262a3b</color>
+    <color name="loading_start_color">#ffffff</color>
+    <color name="loading_center_color">#ffdc35</color>
+    <color name="loading_end_color">#ce0000</color>
 
 
 </resources>

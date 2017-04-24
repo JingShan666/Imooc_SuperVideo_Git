@@ -1,0 +1,30 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:toDegrees="1080"
+    android:pivotX="50%"
+    android:pivotY="50%">
+
+    <!-- android:innerRadiusRatio="3" 表示内环半径 -->
+    <!-- android:thicknessRatio="10" 表示环厚度半径 -->
+    <!-- android:useLevel="false" 表示有渐变-->
+
+    <shape
+        android:shape="ring"
+        android:innerRadiusRatio="3"
+        android:thicknessRatio="10"
+        android:useLevel="false">
+
+        <!-- gradient 梯度-->
+        <!-- android:centerY="0.5" 表示渐变中心y的相对位置-->
+        <!-- android:type="sweep" sweep表示扫描式, linear表示线性, radial辐射式-->
+    <gradient
+        android:startColor="@color/loading_start_color"
+        android:centerColor="@color/loading_center_color"
+        android:endColor="@color/loading_end_color"
+        android:centerY="0.5"
+        android:useLevel="false"
+        android:type="sweep"/>
+
+    </shape>
+
+</rotate>

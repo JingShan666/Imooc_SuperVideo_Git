@@ -26,7 +26,8 @@
         <activity android:name=".GuideActivity" />
         <activity android:name=".DetailListActivity" />
         <activity android:name=".AlbumDetailActivity" />
-        <activity android:name=".PlayActivity"></activity>
+        <activity android:name=".PlayActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
