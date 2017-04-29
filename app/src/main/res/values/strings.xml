@@ -45,6 +45,9 @@
     <string name="btn_phone_high">高清\n播放</string>
     <string name="favor_selected">已收藏</string>
     <string name="favor_normal">收藏</string>
+    <string name="stream_super">超清</string>
+    <string name="stream_normal">标清</string>
+    <string name="stream_high">高清</string>
 
     <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
     <string name="VideoView_error_text_unknown">Unknown</string>

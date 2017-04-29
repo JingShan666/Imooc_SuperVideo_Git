@@ -48,5 +48,147 @@
 
         </RelativeLayout>
 
+        <FrameLayout
+            android:id="@+id/fl_player_top_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_70dp"
+            android:layout_gravity="top"
+            android:background="@color/player_panel_background_color"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:paddingBottom="@dimen/dimen_10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_player_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dimen_15dp"
+                    android:paddingRight="@dimen/dimen_15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/titlebar_return_white"/>
+
+                <TextView
+                    android:id="@+id/tv_player_video_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_32sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_battery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_battery_10"/>
+
+                <TextView
+                    android:id="@+id/tv_sys_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    android:text="16:56"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_32sp"/>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_player_center_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/player_pause_selector"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_player_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_70dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/player_panel_background_color"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/cb_play_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_26dp"
+            android:button="@drawable/player_playbtn_selector"
+            android:checked="true"/>
+
+        <ImageView
+            android:id="@+id/iv_next_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:src="@drawable/panel_next_selector"/>
+
+        <TextView
+            android:id="@+id/tv_current_video_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="03:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_20sp"/>
+
+        <SeekBar
+            android:id="@+id/sb_player_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/playerSeekBarStyle"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.0"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0"
+            android:paddingRight="@dimen/dimen_10dp"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:thumbOffset="@dimen/dimen_10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_total_video_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15:00"
+            android:textSize="@dimen/dimen_20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/dimen_10dp"/>
+
+        <TextView
+            android:id="@+id/tv_bitstream"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:text="高清"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_20sp"
+            android:layout_marginRight="@dimen/dimen_10dp"/>
+
+    </LinearLayout>
 </RelativeLayout>

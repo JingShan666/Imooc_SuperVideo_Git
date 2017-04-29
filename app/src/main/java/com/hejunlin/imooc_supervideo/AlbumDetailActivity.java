@@ -98,6 +98,7 @@ public class AlbumDetailActivity extends BaseActivity {
         String url = (String) button.getTag(R.id.key_video_url);
         int type = (int) button.getTag(R.id.key_video_stream);//码流类型
         Video video = (Video) button.getTag(R.id.key_video);
+        Log.d(TAG, ">> handleButtonClick video " + video);
         int currentPosition = (int) button.getTag(R.id.key_current_video_number);
         if (AppManager.isNetWorkAvailable()) {
             if (AppManager.isNetworkWifiAvailable()) {

@@ -163,17 +163,18 @@ public class Video implements Parcelable {
     }
 
     private Video(Parcel in) {
+        this.aid = in.readLong();
         this.vid = in.readLong();
-        this.videoName = in.readString();
         this.title = in.readString();
+        this.videoName = in.readString();
         this.horHighPic = in.readString();
         this.verHighPic = in.readString();
         this.superUrl = in.readString();
         this.normalUrl = in.readString();
         this.highUrl = in.readString();
         this.site = in.readInt();
-        this.aid = in.readLong();
     }
+    //　parcel对象读写序列要对应
 
     @Override
     public void writeToParcel(Parcel parcel, int in) {
