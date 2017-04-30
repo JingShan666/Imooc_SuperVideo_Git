@@ -15,7 +15,6 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
     private int mWidth;
     private ScrollType mCurrentType;
 
-
     public GestureDetectorController(Context context, IGestureListener listener) {
         mWidth = context.getResources().getDisplayMetrics().widthPixels;
         mGestureListener = listener;
@@ -76,6 +75,10 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
         return false;
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+       return mGestureDetector.onTouchEvent(event);
+    }
+
     @Override
     public void onLongPress(MotionEvent e) {
 
@@ -91,10 +94,6 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
         VERTICAL_LEFT,
         VERTICAL_RIGH,
         HORIZONTAL
-    }
-
-    public void setGestureListener() {
-
     }
 
     public interface IGestureListener {

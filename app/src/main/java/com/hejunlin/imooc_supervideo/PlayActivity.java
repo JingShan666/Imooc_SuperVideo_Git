@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
 import com.hejunlin.imooc_supervideo.model.sohu.Video;
 import com.hejunlin.imooc_supervideo.utils.DateUtils;
+import com.hejunlin.imooc_supervideo.utils.SysUtils;
 import com.hejunlin.imooc_supervideo.widget.media.IjkVideoView;
 
 import java.text.NumberFormat;
@@ -98,7 +101,8 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
             unregisterReceiver(mBatteryReceiver);
             mBatteryReceiver = null;
         }
-
+        //释放audiofocus
+        mAudioManager.abandonAudioFocus(null);
     }
 
     /**
@@ -155,11 +159,21 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
         String percent = formater.format((double)(current)/(double) total);
         mDragVerticalView.setText(percent);
     }
+    //更新水平方向seek的进度, duration表示变化后的duration
+    private void updateHorizontalText(long duration) {
+        String text = stringForTime((int)duration) + "/" + stringForTime(mVideoView.getDuration());
+        mDragHorizontalView.setText(text);
+    }
 
-
+    // 更新进度
     @Override
     public void onScrollHorizontal(float x1, float x2) {
-
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int MAX_SEEK_STEP = 300000;//最大滑动5分钟
+        int offset = (int) (x2 / width * MAX_SEEK_STEP) + mVideoView.getCurrentPosition();
+        long progress = Math.max(0, Math.min(mVideoView.getDuration(), offset));
+        mScrollProgress = progress;
+        updateHorizontalText(progress);
     }
 
     @Override
@@ -169,7 +183,11 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
         if (Math.abs(offset) > 0) {
             mCurrentLight += offset;//得到变化后的亮度
             mCurrentLight = Math.max(0, Math.min(mMaxLight, mCurrentLight));
-            // TODO 更新系统亮度
+            // 更新系统亮度
+            SysUtils.setBrightness(this, mCurrentLight);
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.putInt("shared_preferences_light", mCurrentLight);
+            editor.commit();
             updateVerticalText(mCurrentLight, mMaxLight);
         }
     }
@@ -181,7 +199,8 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
         if (Math.abs(offset) > 0) {
             mCurrentVolume += offset;//得到变化后的声音
             mCurrentVolume = Math.max(0, Math.min(mMaxVolume, mCurrentVolume));
-            // TODO 更新系统声音
+            // 更新系统声音
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mCurrentVolume/10, 0);
             updateVerticalText(mCurrentVolume, mMaxVolume);
         }
     }
@@ -230,10 +249,22 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (mIsMove == false) {
                 toggleTopAndBottomLayout();
+            } else {
+                mIsMove = false;
+            }
+            //水平方向,up时,seek到对应位置播放
+            if (mIsHorizontalScroll) {
+                mIsHorizontalScroll = false;
+                mVideoView.seekTo((int)mScrollProgress);
+                //一次down,up结束后mDragHorizontalView隐藏
+                mDragHorizontalView.setVisibility(View.GONE);
+            }
+            if (mIsVerticalScroll) {
+                mDragHorizontalView.setVisibility(View.GONE);
+                mIsVerticalScroll = false;
             }
         }
-
-        return super.onTouchEvent(event);
+        return mGestureController.onTouchEvent(event);
     }
 
     @Override
@@ -291,12 +322,17 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
 
     private void initAudio() {
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
         mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * 10;// 系统声音取值是0-10,*10为了和百分比相关
         mCurrentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * 10;
     }
 
     private void initLight() {
+        mCurrentLight = SysUtils.getDefaultBrightness(this);
+        if (mCurrentLight == -1) {//获取不到亮度sharedpreferences文件
+            mCurrentLight = SysUtils.getBrightness(this);
+        }
     }
 
     private void initGesture() {
