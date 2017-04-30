@@ -31,7 +31,8 @@
     <color name="loading_start_color">#ffffff</color>
     <color name="loading_center_color">#ffdc35</color>
     <color name="loading_end_color">#ce0000</color>
-    <color name="player_panel_background_color">#99000000</color>可以
+    <color name="player_panel_background_color">#99000000</color>
+    <color name="black">#000000</color>
 
 
 </resources>

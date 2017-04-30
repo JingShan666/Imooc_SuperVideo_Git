@@ -48,6 +48,35 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_horiontal_gesture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowColor="@color/black"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_64sp"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_vertical_gesture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:background="@drawable/black_bg"
+            android:paddingLeft="@dimen/dimen_100dp"
+            android:paddingRight="@dimen/dimen_100dp"
+            android:paddingTop="@dimen/dimen_40dp"
+            android:paddingBottom="@dimen/dimen_40dp"
+            android:textSize="@dimen/dimen_64sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
         <FrameLayout
             android:id="@+id/fl_player_top_container"
             android:layout_width="match_parent"

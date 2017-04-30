@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,13 +28,14 @@ import com.hejunlin.imooc_supervideo.model.sohu.Video;
 import com.hejunlin.imooc_supervideo.utils.DateUtils;
 import com.hejunlin.imooc_supervideo.widget.media.IjkVideoView;
 
+import java.text.NumberFormat;
 import java.util.Formatter;
 import java.util.Locale;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class PlayActivity extends BaseActivity {
+public class PlayActivity extends BaseActivity implements GestureDetectorController.IGestureListener{
 
     private static final String TAG = PlayActivity.class.getSimpleName();
     private static final int CHECK_TIME = 1;
@@ -66,6 +69,17 @@ public class PlayActivity extends BaseActivity {
     private Formatter mFormatter;
     private StringBuilder mFormatterBuilder;
     private boolean mIsDragging;
+    private GestureDetectorController mGestureController;
+    private TextView mDragHorizontalView;
+    private TextView mDragVerticalView;
+    private long mScrollProgress;
+    private boolean mIsHorizontalScroll;
+    private boolean mIsVerticalScroll;
+    private int mCurrentLight;
+    private int mMaxLight = 255;
+    private int mCurrentVolume;
+    private int mMaxVolume = 10;
+    private AudioManager mAudioManager;
 
     @Override
     protected int getLayoutId() {
@@ -97,6 +111,80 @@ public class PlayActivity extends BaseActivity {
             Log.d(TAG, ">> mBatteryReceiver onReceive mBatteryLevel=" + mBatteryLevel);
         }
     };
+
+    @Override
+    public void onScrollStart(GestureDetectorController.ScrollType type) {
+        mIsMove = true;
+        switch (type) {
+            case HORIZONTAL:
+                mDragHorizontalView.setVisibility(View.VISIBLE);
+                mScrollProgress = -1;
+                mIsHorizontalScroll = true;//水平滑动标识
+                break;
+            case VERTICAL_LEFT:
+                setComposeDrawableAndText(mDragVerticalView, R.drawable.ic_light, this);
+                mDragVerticalView.setVisibility(View.VISIBLE);
+                updateVerticalText(mCurrentLight, mMaxLight);
+                mIsVerticalScroll = true;
+                break;
+            case VERTICAL_RIGH:
+                if (mCurrentVolume > 0) {
+                    setComposeDrawableAndText(mDragVerticalView, R.drawable.volume_normal, this);
+                } else {
+                    setComposeDrawableAndText(mDragVerticalView, R.drawable.volume_no, this);
+                }
+                mDragVerticalView.setVisibility(View.VISIBLE);
+                updateVerticalText(mCurrentVolume, mMaxVolume);
+                mIsVerticalScroll = true;
+                break;
+        }
+    }
+    //用于组合图片及文字
+    private void setComposeDrawableAndText(TextView textView, int drawableId, Context context) {
+        Drawable drawable = context.getResources().getDrawable(drawableId);
+        //这四个参数表示把drawable绘制在矩形区域
+        drawable.setBounds(0,0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        //设置图片在文字的上方
+        //The Drawables must already have had drawable.setBounds called.
+        textView.setCompoundDrawables(null, drawable, null , null);
+    }
+    //更新垂直方向上滑动时的百分比
+    private void updateVerticalText(int current, int total) {
+        NumberFormat formater = NumberFormat.getPercentInstance();
+        formater.setMaximumFractionDigits(0);//设置整数部分允许最大小数位 66.5%->66%
+        String percent = formater.format((double)(current)/(double) total);
+        mDragVerticalView.setText(percent);
+    }
+
+
+    @Override
+    public void onScrollHorizontal(float x1, float x2) {
+
+    }
+
+    @Override
+    public void onScrollVerticalLeft(float y1, float y2) {
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int offset = (int) (mMaxLight * y1)/ height;
+        if (Math.abs(offset) > 0) {
+            mCurrentLight += offset;//得到变化后的亮度
+            mCurrentLight = Math.max(0, Math.min(mMaxLight, mCurrentLight));
+            // TODO 更新系统亮度
+            updateVerticalText(mCurrentLight, mMaxLight);
+        }
+    }
+
+    @Override
+    public void onScrollVerticalRight(float y1, float y2) {
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int offset = (int) (mMaxVolume * y1)/ height;
+        if (Math.abs(offset) > 0) {
+            mCurrentVolume += offset;//得到变化后的声音
+            mCurrentVolume = Math.max(0, Math.min(mMaxVolume, mCurrentVolume));
+            // TODO 更新系统声音
+            updateVerticalText(mCurrentVolume, mMaxVolume);
+        }
+    }
 
     class EventHandler extends Handler {
         public EventHandler(Looper looper) {
@@ -157,7 +245,11 @@ public class PlayActivity extends BaseActivity {
         Log.d(TAG, ">> ulr " + mUrl + ", mStreamType " + mStreamType + ", mCurrentPosition " + mCurrentPosition);
         Log.d(TAG, ">> video " + mVideo);
         mEventHandler = new EventHandler(Looper.myLooper());
+        initAudio();
+        initLight();
+        initGesture();
         initTopAndBottomView();
+        initCenterView();
         initListener();
         //init player
         mVideoView = bindViewId(R.id.video_view);
@@ -190,6 +282,25 @@ public class PlayActivity extends BaseActivity {
         });
         registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         toggleTopAndBottomLayout();
+    }
+
+    private void initCenterView() {
+        mDragHorizontalView = bindViewId(R.id.tv_horiontal_gesture);
+        mDragVerticalView = bindViewId(R.id.tv_vertical_gesture);
+    }
+
+    private void initAudio() {
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * 10;// 系统声音取值是0-10,*10为了和百分比相关
+        mCurrentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * 10;
+    }
+
+    private void initLight() {
+    }
+
+    private void initGesture() {
+        mGestureController = new GestureDetectorController(this, this);
     }
 
     private void initTopAndBottomView() {
