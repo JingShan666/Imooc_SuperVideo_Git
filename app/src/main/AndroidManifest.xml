@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hejunlin.imooc_supervideo">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 网络访问 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- setting写入时需要权限 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".AppManager"
@@ -28,8 +28,10 @@
         <activity android:name=".GuideActivity" />
         <activity android:name=".DetailListActivity" />
         <activity android:name=".AlbumDetailActivity" />
-        <activity android:name=".PlayActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".PlayActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".live.LiveActivity"></activity>
     </application>
 
 </manifest>

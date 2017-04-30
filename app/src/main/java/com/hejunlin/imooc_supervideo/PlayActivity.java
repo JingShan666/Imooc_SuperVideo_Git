@@ -1,5 +1,6 @@
 package com.hejunlin.imooc_supervideo;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -83,6 +84,7 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
     private int mCurrentVolume;
     private int mMaxVolume = 10;
     private AudioManager mAudioManager;
+    private String mLiveTitle;//直播节目标题
 
     @Override
     protected int getLayoutId() {
@@ -270,6 +272,7 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
     @Override
     protected void initView() {
         mUrl = getIntent().getStringExtra("url");
+        mLiveTitle = getIntent().getStringExtra("title");
         mStreamType = getIntent().getIntExtra("type", 0);
         mCurrentPosition = getIntent().getIntExtra("currentPosition", 0);
         mVideo = getIntent().getParcelableExtra("video");
@@ -463,6 +466,9 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
             Log.d(TAG, ">> initData mVideoName" + mVideo.getVideoName());
             mVideoNameView.setText(mVideo.getVideoName());
         }
+        if (mLiveTitle != null) {
+            mVideoNameView.setText(mLiveTitle);
+        }
     }
 
     private void setCurrentBattery() {
@@ -551,6 +557,14 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
         } else {
             return mFormatter.format("%02d:%02d", minutes, seconds).toString();
         }
+    }
+    //从直播模块跳转过来
+    public static void launch(Activity activity, String url, String title) {
+        Intent intent = new Intent(activity, PlayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("url", url);
+        intent.putExtra("title", title);
+        activity.startActivity(intent);
     }
 
 }

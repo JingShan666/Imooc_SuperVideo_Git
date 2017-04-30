@@ -48,6 +48,7 @@
     <string name="stream_super">超清</string>
     <string name="stream_normal">标清</string>
     <string name="stream_high">高清</string>
+    <string name="live_title">电视节目直播</string>
 
     <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
     <string name="VideoView_error_text_unknown">Unknown</string>

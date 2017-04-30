@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hejunlin.imooc_supervideo.base.BaseFragment;
+import com.hejunlin.imooc_supervideo.live.LiveActivity;
 import com.hejunlin.imooc_supervideo.model.Channel;
 import com.hejunlin.superindicatorlibray.CircleIndicator;
 import com.hejunlin.superindicatorlibray.LoopViewPager;
@@ -46,7 +47,8 @@ public class HomeFragment extends BaseFragment {
                 Log.d(TAG, ">> onItemClick " + position);
                 switch (position) {
                     case 6:
-                        //TODO 跳转直播
+                        //跳转直播
+                        LiveActivity.launch(getActivity());
                         break;
                     case 7:
                         //TODO  跳转收藏
