@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- setting写入时需要权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <application
         android:name=".AppManager"

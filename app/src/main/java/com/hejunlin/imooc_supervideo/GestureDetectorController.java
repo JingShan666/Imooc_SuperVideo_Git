@@ -1,8 +1,11 @@
 package com.hejunlin.imooc_supervideo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import static com.hejunlin.imooc_supervideo.GestureDetectorController.ScrollType.NOTHING;
 
 /**
  * Created by hejunlin on 17/4/29.
@@ -10,6 +13,7 @@ import android.view.MotionEvent;
 
 public class GestureDetectorController implements GestureDetector.OnGestureListener {
 
+    private static final String TAG = GestureDetectorController.class.getSimpleName();
     private GestureDetector mGestureDetector;
     private IGestureListener mGestureListener;
     private int mWidth;
@@ -23,7 +27,7 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
 
     @Override
     public boolean onDown(MotionEvent e) {
-        mCurrentType = ScrollType.NOTHING;
+        mCurrentType = NOTHING;
         return true;
     }
 
@@ -40,7 +44,7 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         if (mGestureListener != null) {
-            if (mCurrentType != ScrollType.NOTHING) {
+            if (mCurrentType != NOTHING) {
                 switch (mCurrentType) {
                     case VERTICAL_LEFT:
                         mGestureListener.onScrollVerticalLeft(distanceY, e1.getY() - e2.getY());
@@ -52,8 +56,8 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
                         mGestureListener.onScrollHorizontal(distanceX, e2.getX() - e1.getX());
                         break;
                 }
+                return false;
             }
-            return false;
         }
         //水平方向上滑动判断
         if (Math.abs(distanceY) <= Math.abs(distanceX)) {
@@ -70,7 +74,7 @@ public class GestureDetectorController implements GestureDetector.OnGestureListe
             mCurrentType = ScrollType.VERTICAL_RIGH;
             mGestureListener.onScrollStart(mCurrentType);
         } else {
-            mCurrentType = ScrollType.NOTHING;
+            mCurrentType = NOTHING;
         }
         return false;
     }

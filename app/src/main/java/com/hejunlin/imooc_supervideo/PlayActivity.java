@@ -260,7 +260,7 @@ public class PlayActivity extends BaseActivity implements GestureDetectorControl
                 mDragHorizontalView.setVisibility(View.GONE);
             }
             if (mIsVerticalScroll) {
-                mDragHorizontalView.setVisibility(View.GONE);
+                mDragVerticalView.setVisibility(View.GONE);
                 mIsVerticalScroll = false;
             }
         }
