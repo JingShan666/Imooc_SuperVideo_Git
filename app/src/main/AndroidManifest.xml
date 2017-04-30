@@ -31,7 +31,9 @@
         <activity
             android:name=".PlayActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".live.LiveActivity"></activity>
+        <activity android:name=".live.LiveActivity" />
+        <activity
+            android:name=".favorite.FavoriteActivity"/>
     </application>
 
 </manifest>
