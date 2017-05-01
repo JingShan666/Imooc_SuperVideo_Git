@@ -29,16 +29,16 @@ public class FavoriteAdapter extends BaseAdapter {
 
     private static final int TYPE_COUNT = 2;
     private Context mContext;
-    private AlbumList mAlbumList;
-    private boolean mShowChecked;
-    private List<FavoriteAlbum> mFavoriteList;
+    private AlbumList mAlbumList;// 数据list
+    private boolean mShowChecked;// item 选中态
+    private List<FavoriteAlbum> mFavoriteList;//收藏list
 
     public FavoriteAdapter(Context context, AlbumList list) {
         mAlbumList = list;
         mContext = context;
         mShowChecked = false;
         mFavoriteList = new ArrayList<>();
-        for (Album album : mAlbumList) {
+        for (Album album : mAlbumList) { //遍历取数据
             mFavoriteList.add(new FavoriteAlbum(album));
         }
     }
@@ -46,6 +46,10 @@ public class FavoriteAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return mFavoriteList.size();
+    }
+
+    public boolean isSelected() {
+        return mShowChecked;
     }
 
     @Override
@@ -69,10 +73,10 @@ public class FavoriteAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final FavoriteAlbum favoriteAlbum = getItem(position);
         final Album album = favoriteAlbum.getAlbum();
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             convertView =  LayoutInflater.from(mContext).inflate(R.layout.favorite_item, null);
             holder = new ViewHolder();
@@ -101,25 +105,53 @@ public class FavoriteAdapter extends BaseAdapter {
                 ImageUtils.disPlayImage(holder.mAlbumPost, album.getHorImgUrl(), point.x, point.y);
             }
             holder.mCbButton.setChecked(favoriteAlbum.isIsChecked());
-            holder.mContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //点击跳转详情页
-                    AlbumDetailActivity.launch((Activity) mContext, album);
-                }
-            });
-            //长按可删除
-            holder.mContainer.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    favoriteAlbum.setIsChecked(true);//当前itemt选中
-                    notifyDataSetChanged();//刷新,相当于调用getview
-                    return true;
-                }
-            });
-
+            if (!mShowChecked) {
+                holder.mContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //点击跳转详情页
+                        AlbumDetailActivity.launch((Activity) mContext, album);
+                    }
+                });
+                //长按可删除
+                holder.mContainer.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        favoriteAlbum.setIsChecked(true);//当前item选中
+                        setShowChecked(true);
+                        mFavoriteList.get(position).setIsChecked(true);
+                        holder.mContainer.setVisibility(View.VISIBLE);
+                        notifyDataSetChanged();//刷新,相当于调用getview
+                        return true;
+                    }
+                });
+            } else { //处理当有一个item被选中时,再选其他item情况
+                holder.mContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean checked = favoriteAlbum.isIsChecked();
+                        favoriteAlbum.setIsChecked(checked);
+                        holder.mCbButton.setChecked(!checked);
+                        favoriteAlbum.setIsChecked(!checked);
+                    }
+                });
+            }
         }
         return convertView;
+    }
+
+    public void setShowChecked(boolean isSelected) {
+        this.mShowChecked = isSelected;
+    }
+
+    public List<FavoriteAlbum> getFavorAlbmList() {
+        return mFavoriteList;
+    }
+
+    public void optionCheckedAllItem(boolean isSelected) {
+        for (FavoriteAlbum favoriteAlbum : mFavoriteList) {
+            favoriteAlbum.setIsChecked(isSelected);
+        }
     }
 
     class ViewHolder {

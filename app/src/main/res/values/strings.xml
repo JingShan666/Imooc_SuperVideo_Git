@@ -52,6 +52,9 @@
     <string name="favorite_title">我的收藏</string>
     <string name="action_delete">删除</string>
     <string name="favorite_empty">收藏夹空空如也,快去收藏吧!</string>
+    <string name="favorite_dialog_message">确定删除?</string>
+    <string name="favorite_dialog_sure">确定</string>
+    <string name="favorite_dialog_quit">取消</string>
 
     <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
     <string name="VideoView_error_text_unknown">Unknown</string>
