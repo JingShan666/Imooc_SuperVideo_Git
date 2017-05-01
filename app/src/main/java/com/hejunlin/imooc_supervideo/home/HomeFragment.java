@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.home;
 
 
 import android.util.Log;
@@ -11,7 +11,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseFragment;
+import com.hejunlin.imooc_supervideo.detail.DetailListActivity;
 import com.hejunlin.imooc_supervideo.favorite.FavoriteActivity;
 import com.hejunlin.imooc_supervideo.history.HistoryActivity;
 import com.hejunlin.imooc_supervideo.live.LiveActivity;

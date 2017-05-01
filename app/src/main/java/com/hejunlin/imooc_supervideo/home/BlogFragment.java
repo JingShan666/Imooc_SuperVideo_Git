@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.home;
 
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -6,6 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseFragment;
 
 /**

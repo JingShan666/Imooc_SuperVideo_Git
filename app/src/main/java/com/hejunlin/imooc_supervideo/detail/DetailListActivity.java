@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
 import com.hejunlin.imooc_supervideo.indircator.CoolIndicatorLayout;
 import com.hejunlin.imooc_supervideo.indircator.IPagerIndicatorView;

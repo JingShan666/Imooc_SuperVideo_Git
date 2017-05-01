@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.player;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,7 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
+import com.hejunlin.imooc_supervideo.detail.AlbumDetailActivity;
 import com.hejunlin.imooc_supervideo.model.sohu.Video;
 import com.hejunlin.imooc_supervideo.utils.DateUtils;
 import com.hejunlin.imooc_supervideo.utils.SysUtils;

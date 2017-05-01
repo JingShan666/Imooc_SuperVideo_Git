@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.detail;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hejunlin.imooc_supervideo.AppManager;
+import com.hejunlin.imooc_supervideo.player.PlayActivity;
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.api.OnGetAlbumDetailListener;
 import com.hejunlin.imooc_supervideo.api.OnGetVideoPlayUrlListener;
 import com.hejunlin.imooc_supervideo.api.SiteApi;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
 import com.hejunlin.imooc_supervideo.common.CommonDBHelper;
-import com.hejunlin.imooc_supervideo.detail.AlbumPlayGridFragment;
 import com.hejunlin.imooc_supervideo.model.Album;
 import com.hejunlin.imooc_supervideo.model.ErrorInfo;
 import com.hejunlin.imooc_supervideo.model.sohu.Video;

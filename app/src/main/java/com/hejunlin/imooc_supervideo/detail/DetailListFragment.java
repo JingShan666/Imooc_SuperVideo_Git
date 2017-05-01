@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.detail;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.api.OnGetChannelAlbumListener;
 import com.hejunlin.imooc_supervideo.api.SiteApi;
 import com.hejunlin.imooc_supervideo.base.BaseFragment;

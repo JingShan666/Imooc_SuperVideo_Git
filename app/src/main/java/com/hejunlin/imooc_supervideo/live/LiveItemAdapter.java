@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hejunlin.imooc_supervideo.PlayActivity;
+import com.hejunlin.imooc_supervideo.player.PlayActivity;
 import com.hejunlin.imooc_supervideo.R;
 
 /**

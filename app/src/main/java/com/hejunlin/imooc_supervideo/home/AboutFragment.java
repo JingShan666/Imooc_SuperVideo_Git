@@ -1,9 +1,10 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.home;
 
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.widget.TextView;
 
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseFragment;
 
 /**

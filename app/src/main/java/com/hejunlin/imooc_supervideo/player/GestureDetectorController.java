@@ -1,11 +1,10 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.player;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import static com.hejunlin.imooc_supervideo.GestureDetectorController.ScrollType.NOTHING;
+import static com.hejunlin.imooc_supervideo.player.GestureDetectorController.ScrollType.NOTHING;
 
 /**
  * Created by hejunlin on 17/4/29.

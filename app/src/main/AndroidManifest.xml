@@ -24,12 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".home.HomeActivity" />
         <activity android:name=".GuideActivity" />
-        <activity android:name=".DetailListActivity" />
-        <activity android:name=".AlbumDetailActivity" />
+        <activity android:name=".detail.DetailListActivity" />
+        <activity android:name=".detail.AlbumDetailActivity" />
         <activity
-            android:name=".PlayActivity"
+            android:name=".player.PlayActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".live.LiveActivity" />
         <activity

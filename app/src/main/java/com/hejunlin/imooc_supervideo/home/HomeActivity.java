@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo;
+package com.hejunlin.imooc_supervideo.home;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.MenuItem;
 
+import com.hejunlin.imooc_supervideo.FragmentManagerWrapper;
+import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
 
 public class HomeActivity extends BaseActivity {

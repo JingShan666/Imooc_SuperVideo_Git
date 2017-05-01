@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.hejunlin.imooc_supervideo.AlbumDetailActivity;
+import com.hejunlin.imooc_supervideo.detail.AlbumDetailActivity;
 import com.hejunlin.imooc_supervideo.R;
 import com.hejunlin.imooc_supervideo.model.Album;
 import com.hejunlin.imooc_supervideo.model.AlbumList;
