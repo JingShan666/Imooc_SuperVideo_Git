@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo.favorite;
+package com.hejunlin.imooc_supervideo.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,27 +25,27 @@ import java.util.List;
  * Created by hejunlin on 17/4/30.
  */
 
-public class FavoriteAdapter extends BaseAdapter {
+public class CommonAdapter extends BaseAdapter {
 
     private static final int TYPE_COUNT = 2;
     private Context mContext;
     private AlbumList mAlbumList;// 数据list
     private boolean mShowChecked;// item 选中态
-    private List<FavoriteAlbum> mFavoriteList;//收藏list
+    private List<CommonAlbum> mCommonList;//list
 
-    public FavoriteAdapter(Context context, AlbumList list) {
+    public CommonAdapter(Context context, AlbumList list) {
         mAlbumList = list;
         mContext = context;
         mShowChecked = false;
-        mFavoriteList = new ArrayList<>();
+        mCommonList = new ArrayList<>();
         for (Album album : mAlbumList) { //遍历取数据
-            mFavoriteList.add(new FavoriteAlbum(album));
+            mCommonList.add(new CommonAlbum(album));
         }
     }
 
     @Override
     public int getCount() {
-        return mFavoriteList.size();
+        return mCommonList.size();
     }
 
     public boolean isSelected() {
@@ -53,8 +53,8 @@ public class FavoriteAdapter extends BaseAdapter {
     }
 
     @Override
-    public FavoriteAlbum getItem(int position) {
-        return mFavoriteList.get(position);
+    public CommonAlbum getItem(int position) {
+        return mCommonList.get(position);
     }
 
     @Override
@@ -74,8 +74,8 @@ public class FavoriteAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final FavoriteAlbum favoriteAlbum = getItem(position);
-        final Album album = favoriteAlbum.getAlbum();
+        final CommonAlbum commonAlbum = getItem(position);
+        final Album album = commonAlbum.getAlbum();
         final ViewHolder holder;
         if (convertView == null) {
             convertView =  LayoutInflater.from(mContext).inflate(R.layout.favorite_item, null);
@@ -93,7 +93,7 @@ public class FavoriteAdapter extends BaseAdapter {
         } else {
             holder.mCbButton.setVisibility(View.GONE);
         }
-        if (mFavoriteList.size() > 0) {
+        if (mCommonList.size() > 0) {
             holder.mAlbumName.setText(album.getTitle());
             //重新计算宽高
             Point point =  ImageUtils.getVerPostSize(mContext, 3);
@@ -104,7 +104,7 @@ public class FavoriteAdapter extends BaseAdapter {
             } else if (album.getHorImgUrl() != null) {
                 ImageUtils.disPlayImage(holder.mAlbumPost, album.getHorImgUrl(), point.x, point.y);
             }
-            holder.mCbButton.setChecked(favoriteAlbum.isIsChecked());
+            holder.mCbButton.setChecked(commonAlbum.isIsChecked());
             if (!mShowChecked) {
                 holder.mContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -117,9 +117,9 @@ public class FavoriteAdapter extends BaseAdapter {
                 holder.mContainer.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        favoriteAlbum.setIsChecked(true);//当前item选中
+                        commonAlbum.setIsChecked(true);//当前item选中
                         setShowChecked(true);
-                        mFavoriteList.get(position).setIsChecked(true);
+                        mCommonList.get(position).setIsChecked(true);
                         holder.mContainer.setVisibility(View.VISIBLE);
                         notifyDataSetChanged();//刷新,相当于调用getview
                         return true;
@@ -129,10 +129,10 @@ public class FavoriteAdapter extends BaseAdapter {
                 holder.mContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean checked = favoriteAlbum.isIsChecked();
-                        favoriteAlbum.setIsChecked(checked);
+                        boolean checked = commonAlbum.isIsChecked();
+                        commonAlbum.setIsChecked(checked);
                         holder.mCbButton.setChecked(!checked);
-                        favoriteAlbum.setIsChecked(!checked);
+                        commonAlbum.setIsChecked(!checked);
                     }
                 });
             }
@@ -144,13 +144,13 @@ public class FavoriteAdapter extends BaseAdapter {
         this.mShowChecked = isSelected;
     }
 
-    public List<FavoriteAlbum> getFavorAlbmList() {
-        return mFavoriteList;
+    public List<CommonAlbum> getFavorAlbmList() {
+        return mCommonList;
     }
 
     public void optionCheckedAllItem(boolean isSelected) {
-        for (FavoriteAlbum favoriteAlbum : mFavoriteList) {
-            favoriteAlbum.setIsChecked(isSelected);
+        for (CommonAlbum commonAlbum : mCommonList) {
+            commonAlbum.setIsChecked(isSelected);
         }
     }
 
@@ -161,11 +161,11 @@ public class FavoriteAdapter extends BaseAdapter {
         RelativeLayout mContainer;
     }
 
-    class FavoriteAlbum {
+    class CommonAlbum {
         private Album mAlbum;
         private boolean mIsChecked;
 
-        public FavoriteAlbum(Album album) {
+        public CommonAlbum(Album album) {
             mAlbum = album;
             mIsChecked = false;
         }

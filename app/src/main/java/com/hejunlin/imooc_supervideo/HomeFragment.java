@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.hejunlin.imooc_supervideo.base.BaseFragment;
 import com.hejunlin.imooc_supervideo.favorite.FavoriteActivity;
+import com.hejunlin.imooc_supervideo.history.HistoryActivity;
 import com.hejunlin.imooc_supervideo.live.LiveActivity;
 import com.hejunlin.imooc_supervideo.model.Channel;
 import com.hejunlin.superindicatorlibray.CircleIndicator;
@@ -56,10 +57,11 @@ public class HomeFragment extends BaseFragment {
                         FavoriteActivity.launch(getActivity());
                         break;
                     case 8:
-                        //TODO  跳转历史记录
+                        //跳转历史记录
+                        HistoryActivity.launch(getActivity());
                         break;
                     default:
-                        //TODO  跳转对应频道
+                        //跳转对应频道
                         DetailListActivity.launchDetailListActivity(getActivity(), position + 1);
                         break;
                 }

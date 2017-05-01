@@ -55,6 +55,8 @@
     <string name="favorite_dialog_message">确定删除?</string>
     <string name="favorite_dialog_sure">确定</string>
     <string name="favorite_dialog_quit">取消</string>
+    <string name="history_title">播放历史</string>
+    <string name="history_empty">暂无播放历史!</string>
 
     <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
     <string name="VideoView_error_text_unknown">Unknown</string>

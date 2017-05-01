@@ -1,4 +1,4 @@
-package com.hejunlin.imooc_supervideo.favorite;
+package com.hejunlin.imooc_supervideo.common;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,43 +18,58 @@ import java.util.Locale;
  * Created by hejunlin on 17/5/1.
  */
 
-public class FavoriteDBHelper extends SQLiteOpenHelper {
+public class CommonDBHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = FavoriteDBHelper.class.getSimpleName();
-    private static final String DATABASE_NAME = "favorite.db";
-    private static final String TABLE_NAME = "favorite";
+    private static final String TAG = CommonDBHelper.class.getSimpleName();
+    private static final String DATABASE_NAME = "imooc.db";
     private static final int DATABASE_VERSION = 1;
     private static final String KEY_ID = "id";
     private static final String KEY_ALBUM_ID = "albumid";
     private static final String KEY_ALBUM_SITE = "albumsite";
     private static final String KEY_ALBUM_JSON = "albumjson";
     private static final String KEY_CREATE_TIME = "createtime";
+    private static final String HISTORY_TABLE_NAME = "history";
+    private static final String FAVORITE_TABLE_NAME = "favorite";
+    private String TABLE_NAME;
 
-    public FavoriteDBHelper(Context context) {
+    public CommonDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public void setParams(String tablename) {
+        TABLE_NAME = tablename;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "create table " + TABLE_NAME + "("
+        // databse 一创建,生成两个空表
+        String HISTORY_CREATE_TABLE = "create table " + HISTORY_TABLE_NAME + "("
                 + KEY_ID + " integer primary key,"
                 + KEY_ALBUM_ID + " text,"
                 + KEY_ALBUM_SITE + " integer,"
                 + KEY_ALBUM_JSON + " text,"
                 + KEY_CREATE_TIME + " text " + ")";
-        Log.d(TAG , ">>  onCreate " + CREATE_TABLE);
-        db.execSQL(CREATE_TABLE);
+        String FAVORITE_CREATE_TABLE = "create table " + FAVORITE_TABLE_NAME + "("
+                + KEY_ID + " integer primary key,"
+                + KEY_ALBUM_ID + " text,"
+                + KEY_ALBUM_SITE + " integer,"
+                + KEY_ALBUM_JSON + " text,"
+                + KEY_CREATE_TIME + " text " + ")";
+        Log.d(TAG , ">>  onCreate " + FAVORITE_CREATE_TABLE);
+        Log.d(TAG , ">>  onCreate " + HISTORY_CREATE_TABLE);
+        db.execSQL(HISTORY_CREATE_TABLE);
+        db.execSQL(FAVORITE_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exists " + TABLE_NAME);
+        db.execSQL("drop table if exists " + HISTORY_TABLE_NAME);
+        db.execSQL("drop table if exists " + FAVORITE_TABLE_NAME);
         onCreate(db);
     }
 
-
     /**
-     * 添加收藏
+     * 添加
      * @param album
      */
     public void add(Album album) {

@@ -2,10 +2,7 @@ package com.hejunlin.imooc_supervideo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -20,9 +17,8 @@ import com.hejunlin.imooc_supervideo.api.OnGetAlbumDetailListener;
 import com.hejunlin.imooc_supervideo.api.OnGetVideoPlayUrlListener;
 import com.hejunlin.imooc_supervideo.api.SiteApi;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
+import com.hejunlin.imooc_supervideo.common.CommonDBHelper;
 import com.hejunlin.imooc_supervideo.detail.AlbumPlayGridFragment;
-import com.hejunlin.imooc_supervideo.favorite.FavoriteAdapter;
-import com.hejunlin.imooc_supervideo.favorite.FavoriteDBHelper;
 import com.hejunlin.imooc_supervideo.model.Album;
 import com.hejunlin.imooc_supervideo.model.ErrorInfo;
 import com.hejunlin.imooc_supervideo.model.sohu.Video;
@@ -45,7 +41,8 @@ public class AlbumDetailActivity extends BaseActivity {
     private Button mNormalBitstreamButton;
     private Button mHighBitstreamButton;
     private int mCurrentVideoPosition;
-    private FavoriteDBHelper mFavoriteDBHelper;
+    private CommonDBHelper mFavoriteDBHelper;
+    private CommonDBHelper mHistoryDBHelper;
 
     @Override
     protected int getLayoutId() {
@@ -61,7 +58,10 @@ public class AlbumDetailActivity extends BaseActivity {
         setSupportArrowActionBar(true);
         setTitle(mAlbum.getTitle());//显示标题
 
-        mFavoriteDBHelper = new FavoriteDBHelper(this);
+        mFavoriteDBHelper = new CommonDBHelper(this);
+        mFavoriteDBHelper.setParams("favorite");
+        mHistoryDBHelper = new CommonDBHelper(this);
+        mHistoryDBHelper.setParams("history");
         mIsFavor = mFavoriteDBHelper.getAlbumById(mAlbum.getAlbumId(), mAlbum.getSite().getSiteId()) != null ;
         mAlbumImg = bindViewId(R.id.iv_album_image);
         mAlbumName = bindViewId(R.id.tv_album_name);
@@ -107,6 +107,7 @@ public class AlbumDetailActivity extends BaseActivity {
         int currentPosition = (int) button.getTag(R.id.key_current_video_number);
         if (AppManager.isNetWorkAvailable()) {
             if (AppManager.isNetworkWifiAvailable()) {
+                mHistoryDBHelper.add(mAlbum);
                 Intent intent = new Intent(AlbumDetailActivity.this, PlayActivity.class);
                 intent.putExtra("url",url);
                 intent.putExtra("type",type);
