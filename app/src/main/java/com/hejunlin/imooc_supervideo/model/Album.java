@@ -212,7 +212,7 @@ public class Album implements Parcelable {
         return ret;
     }
 
-    public Album fromJson(String json) {
+    public static Album fromJson(String json) {
         Album album = AppManager.getGson().fromJson(json, Album.class);
         return album;
     }

@@ -21,6 +21,8 @@ import com.hejunlin.imooc_supervideo.api.OnGetVideoPlayUrlListener;
 import com.hejunlin.imooc_supervideo.api.SiteApi;
 import com.hejunlin.imooc_supervideo.base.BaseActivity;
 import com.hejunlin.imooc_supervideo.detail.AlbumPlayGridFragment;
+import com.hejunlin.imooc_supervideo.favorite.FavoriteAdapter;
+import com.hejunlin.imooc_supervideo.favorite.FavoriteDBHelper;
 import com.hejunlin.imooc_supervideo.model.Album;
 import com.hejunlin.imooc_supervideo.model.ErrorInfo;
 import com.hejunlin.imooc_supervideo.model.sohu.Video;
@@ -43,6 +45,7 @@ public class AlbumDetailActivity extends BaseActivity {
     private Button mNormalBitstreamButton;
     private Button mHighBitstreamButton;
     private int mCurrentVideoPosition;
+    private FavoriteDBHelper mFavoriteDBHelper;
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +61,8 @@ public class AlbumDetailActivity extends BaseActivity {
         setSupportArrowActionBar(true);
         setTitle(mAlbum.getTitle());//显示标题
 
+        mFavoriteDBHelper = new FavoriteDBHelper(this);
+        mIsFavor = mFavoriteDBHelper.getAlbumById(mAlbum.getAlbumId(), mAlbum.getSite().getSiteId()) != null ;
         mAlbumImg = bindViewId(R.id.iv_album_image);
         mAlbumName = bindViewId(R.id.tv_album_name);
         mDirector = bindViewId(R.id.tv_album_director);
@@ -186,7 +191,8 @@ public class AlbumDetailActivity extends BaseActivity {
             case R.id.action_favor_item:
                 if (mIsFavor) {
                     mIsFavor = false;
-                    // TODO 收藏状态存储
+                    // 收藏状态更新
+                    mFavoriteDBHelper.delete(mAlbum.getAlbumId(), mAlbum.getSite().getSiteId());
                     invalidateOptionsMenu();
                     Toast.makeText(this, "已取消收藏", Toast.LENGTH_SHORT).show();
                 }
@@ -194,7 +200,8 @@ public class AlbumDetailActivity extends BaseActivity {
             case R.id.action_unfavor_item:
                 if (!mIsFavor) {
                     mIsFavor = true;
-                    // TODO 收藏状态存储
+                    // 收藏状态更新
+                    mFavoriteDBHelper.add(mAlbum);
                     invalidateOptionsMenu();
                     Toast.makeText(this, "已添加收藏", Toast.LENGTH_SHORT).show();
                 }

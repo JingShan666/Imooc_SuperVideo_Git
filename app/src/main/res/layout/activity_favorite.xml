@@ -26,7 +26,8 @@
                     android:layout_height="match_parent"
                     android:horizontalSpacing="@dimen/dimen_4dp"
                     android:verticalSpacing="@dimen/dimen_4dp"
-                    android:numColumns="2"
+                    android:numColumns="3"
+                    android:padding="@dimen/dimen_4dp"
                     android:stretchMode="columnWidth" />
 
                 <TextView
